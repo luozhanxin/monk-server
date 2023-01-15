@@ -16,11 +16,11 @@ redisClient.on("error", (err) => {
 });
 
 // run node src/db/redis.js test connect
-//redisClient.on("connect", () => {
+// redisClient.on("connect", () => {
 //  console.log("redis connect success");
 //  redisClient.set("foo", "bar", redis.print);
 //  redisClient.get("foo", redis.print);
 //  redisClient.quit();
-//});
+// });
 
 module.exports = redisClient;

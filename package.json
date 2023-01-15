@@ -8,7 +8,10 @@
     "test:local": "cross-env NODE_ENV=test_local jest --runInBand --passWithNoTests --colors --forceExit",
     "test:remote": "cross-env NODE_ENV=test_remote jest --runInBand  --passWithNoTests --colors --forceExit",
     "prd-dev": "cross-env NODE_ENV=prd_dev pm2 start bin/pm2-prd-dev.config.js",
-    "prd": "cross-env NODE_ENV=production NODE_LOG_DIR=/tmp/monk-server ENABLE_NODE_LOG=YES pm2 start bin/pm2-prd.config.js"
+    "prd": "cross-env NODE_ENV=production NODE_LOG_DIR=/tmp/monk-server ENABLE_NODE_LOG=YES pm2 start bin/pm2-prd.config.js",
+    "lint": "eslint \"src/**/*.{js,ts}\"",
+    "lint-fix": "eslint --fix \"src/**/*.{js,ts}\"",
+    "prepare": "husky install"
   },
   "dependencies": {
     "axios": "^1.2.2",
@@ -34,8 +37,22 @@
     "simple-git": "^3.15.1"
   },
   "devDependencies": {
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.4",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
     "jest": "^29.3.1",
+    "lint-staged": "^13.1.0",
     "nodemon": "^1.19.1",
+    "prettier": "^2.8.3",
     "supertest": "^6.3.3"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "npm run test:local"
+    ]
   }
 }

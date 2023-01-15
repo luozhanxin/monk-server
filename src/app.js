@@ -1,4 +1,5 @@
 const Koa = require("koa");
+
 const app = new Koa();
 const views = require("koa-views");
 const json = require("koa-json");
@@ -22,11 +23,11 @@ app.use(
 );
 app.use(json());
 app.use(logger());
-app.use(require("koa-static")(__dirname + "/public"));
+app.use(require("koa-static")(`${__dirname}/public`));
 // use jwt
 
 app.use(
-  views(__dirname + "/views", {
+  views(`${__dirname}/views`, {
     extension: "pug",
   })
 );

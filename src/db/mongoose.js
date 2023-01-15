@@ -22,8 +22,8 @@ db.on("error", (err) => {
 });
 
 // run node src/db/mongoose.js test connect
-//db.once("open", () => {
+// db.once("open", () => {
 //  console.log("mongoose connect success");
-//});
+// });
 
 module.exports = mongoose;
