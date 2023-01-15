@@ -1,4 +1,5 @@
 const Koa = require("koa");
+
 const app = new Koa();
 const views = require("koa-views");
 const json = require("koa-json");
@@ -6,6 +7,7 @@ const onerror = require("koa-onerror");
 const bodyparser = require("koa-bodyparser");
 const logger = require("koa-logger");
 const jwt = require("./middlewares/jwt");
+const cors = require("./middlewares/cors");
 
 const index = require("./routes/index");
 const users = require("./routes/users");
@@ -14,7 +16,13 @@ const users = require("./routes/users");
 onerror(app);
 
 // middlewares
+
+// jwt
 app.use(jwt);
+
+// 支持跨域
+app.use(cors);
+
 app.use(
   bodyparser({
     enableTypes: ["json", "form", "text"],
@@ -22,11 +30,11 @@ app.use(
 );
 app.use(json());
 app.use(logger());
-app.use(require("koa-static")(__dirname + "/public"));
+app.use(require("koa-static")(`${__dirname}/public`));
 // use jwt
 
 app.use(
-  views(__dirname + "/views", {
+  views(`${__dirname}/views`, {
     extension: "pug",
   })
 );

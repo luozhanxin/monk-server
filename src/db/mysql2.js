@@ -8,9 +8,9 @@ async function testMysqlConn() {
 }
 
 // run node/src/db/mysql2.js test
-//(async () => {
+// (async () => {
 //  // [ { 'now()': 2023-01-15T09:46:54.000Z } ]
 //  const rows = await testMysqlConn();
 //  console.log(rows);
-//})();
+// })();
 module.exports = testMysqlConn;
