@@ -19,7 +19,7 @@ if (isTestLocal) {
 let TOKEN = "";
 
 // remote host
-const REMOTE_HOST = "http://43.137.4.245:8081";
+const REMOTE_HOST = "http://43.137.16.158:8081";
 
 /**
  * 发送请求

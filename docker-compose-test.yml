@@ -8,10 +8,6 @@ services:
     container_name: monk-server
     ports:
       - 8081:3000
-    links:
-      - monk-redis
-      - monk-mysql
-      - monk-mongodb
   monk-redis:
     image: redis:7.0.7
     container_name: monk-redis
