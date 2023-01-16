@@ -6,15 +6,17 @@ const redisClient = require("../db/redis");
  * @param {string|Object} val val
  * @param {number} timeout 过期时间，单位 s ，默认 1h
  */
-function cacheSet(key, val, timeout = 60 * 60) {
+async function cacheSet(key, val, timeout = 60 * 60) {
   let formatVal;
   if (typeof val === "object") {
     formatVal = JSON.stringify(val);
   } else {
     formatVal = val;
   }
-  redisClient.set(key, formatVal);
-  redisClient.expire(key, timeout);
+  await redisClient.connect();
+  await redisClient.set(key, formatVal);
+  await redisClient.expire(key, timeout);
+  await redisClient.disconnect();
 }
 
 /**
@@ -23,6 +25,7 @@ function cacheSet(key, val, timeout = 60 * 60) {
  */
 function cacheGet(key) {
   const promise = new Promise((resolve, reject) => {
+    redisClient.connect();
     redisClient.get(key, (err, val) => {
       if (err) {
         reject(err);
