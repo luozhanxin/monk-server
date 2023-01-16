@@ -28,7 +28,7 @@ jobs:
       - name: deploy # 部署
         run: |
           ssh root@43.137.4.245 "
-            cd /root/git/monk-server;
+            cd /root/git/monk/monk-server;
             git remote add origin https://luozhanxin:${{secrets.MONK_PASSWORD}}@github.com/luozhanxin/monk-server.git;
             git checkout dev;
             git pull origin dev; # 重新下载最新代码
