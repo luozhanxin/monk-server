@@ -1,0 +1,29 @@
+# 自动化测试
+name: test
+on:
+  push:
+    branches:
+      - feature/workflow
+    paths:
+      - ".github/workflows/**"
+      - "__test__/**"
+      - "src/**"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3 # git pull
+    - name: Use Node.js
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 19
+    - name: print node version
+      run: |
+        node -v
+        npm -v
+  test2:
+    runs-on: ubuntu-latest
+    steps:
+      - run: touch a.txt
+      - run: echo 100 > a.txt
+      - run: cat a.txt
