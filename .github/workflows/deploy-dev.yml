@@ -24,10 +24,12 @@ jobs:
           mkdir -p ~/.ssh/
           echo "${{secrets.MONK}}" > ~/.ssh/id_rsa # secret
           chmod 0600 ~/.ssh/id_rsa
+          ssh-add ~/.ssh/id_rsa
+          ssh-add -l
           ssh-keyscan "43.137.16.158" >> ~/.ssh/known_hosts
       - name: deploy # 部署
         run: |
-          ssh -i ~/.ssh/id_rsa -A root@43.137.16.158 "
+          ssh -A root@43.137.16.158 "
             cd /root/git/monk/monk-server;
             git checkout -b dev;
             git pull origin dev; # 重新下载最新代码
