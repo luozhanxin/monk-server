@@ -1,0 +1,39 @@
+# 部署 dev 分支到测试机
+name: deploy for dev
+
+on:
+  push:
+    branches:
+      - "dev" # 只针对 dev 分支
+    paths:
+      - ".github/workflows/*"
+      # - '__test__/**' # dev 不需要立即测试
+      - "src/**"
+      - "Dockerfile"
+      - "docker-compose.yml"
+      - "bin/*"
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: set ssh key # 临时设置 ssh key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{secrets.MONK}}" > ~/.ssh/id_rsa # secret
+          chmod 0600 ~/.ssh/id_rsa
+          ssh-keyscan "43.137.16.158" >> ~/.ssh/known_hosts
+      - name: deploy # 部署
+        run: |
+          ssh -A root@43.137.16.158 "
+            cd /root/git/monk/monk-server;
+            git checkout -b dev;
+            git pull origin dev; # 重新下载最新代码
+            # 启动 docker
+            docker compose -f docker-compose-test.yml build monk-server; # 和 docker-compose.yml service 名字一致
+            docker compose -f docker-compose-test.yml up -d;
+          "
+      - name: delete ssh key # 删除 ssh key
+        run: rm -rf ~/.ssh/id_rsa

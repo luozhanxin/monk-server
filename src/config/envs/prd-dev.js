@@ -1,22 +1,24 @@
 module.exports = {
   // mysql connect config
   mysqlConf: {
-    host: "127.0.0.1",
+    host: "monk-mysql",
     user: "root",
-    password: "",
-    port: "11100",
-    database: "apps_db",
+    password: "monk2023",
+    port: "3306",
+    database: "monktestdb",
   },
   // mongodb connect config
   mongodbConf: {
-    host: "localhost",
+    host: "monk-mongodb",
     port: "27017",
-    dbName: "apps_db",
+    user: "root",
+    password: "monk2023",
+    dbName: "monktestdb",
   },
   // redis connect config
   redisConf: {
-    port: "11300",
-    host: "127.0.0.1",
+    port: "6379",
+    host: "monk-redis",
   },
   // jwt 过期时间
   jwtExpiresIn: "1d", // 1. 字符串，如 '1h' '2d'； 2. 数字，单位是 s
