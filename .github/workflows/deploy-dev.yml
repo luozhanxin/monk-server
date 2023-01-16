@@ -24,8 +24,6 @@ jobs:
           mkdir -p ~/.ssh/
           echo "${{secrets.MONK}}" > ~/.ssh/id_rsa # secret
           chmod 0600 ~/.ssh/id_rsa
-          ssh-add ~/.ssh/id_rsa
-          ssh-add -l
           ssh-keyscan "43.137.16.158" >> ~/.ssh/known_hosts
       - name: deploy # 部署
         run: |
