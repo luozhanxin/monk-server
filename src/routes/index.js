@@ -15,7 +15,7 @@ router.get("/api/db-check", async (ctx, next) => {
   ctx.body = {
     errno: 0,
     data: {
-      name: "monk server1",
+      name: "monk server",
       version: packageInfo.version,
       ENV,
       mysqlConn: mysqlRes.length > 0,

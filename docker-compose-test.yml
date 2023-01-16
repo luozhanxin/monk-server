@@ -5,6 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: monk-server
+    restart: always
     container_name: monk-server
     ports:
       - 8081:3000
