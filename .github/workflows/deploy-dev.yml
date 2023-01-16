@@ -27,7 +27,7 @@ jobs:
           ssh-keyscan "43.137.16.158" >> ~/.ssh/known_hosts
       - name: deploy # 部署
         run: |
-          ssh -A root@43.137.16.158 "
+          ssh -i ~/.ssh/id_rsa -A root@43.137.16.158 "
             cd /root/git/monk/monk-server;
             git checkout -b dev;
             git pull origin dev; # 重新下载最新代码
