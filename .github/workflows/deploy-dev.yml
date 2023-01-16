@@ -24,17 +24,17 @@ jobs:
           mkdir -p ~/.ssh/
           echo "${{secrets.MONK}}" > ~/.ssh/id_rsa # secret
           chmod 0600 ~/.ssh/id_rsa
-          ssh-keyscan "43.137.4.245" >> ~/.ssh/known_hosts
+          ssh-keyscan "43.137.16.158" >> ~/.ssh/known_hosts
       - name: deploy # 部署
         run: |
-          ssh root@43.137.4.245 "
+          ssh root@43.137.16.158 "
             cd /root/git/monk/monk-server;
             git remote add origin https://luozhanxin:${{secrets.MONK_PASSWORD}}@github.com/luozhanxin/monk-server.git;
             git checkout dev;
             git pull origin dev; # 重新下载最新代码
             git remote remove origin; # 删除 origin ，否则会暴露 github 密码
             # 启动 docker
-            docker compose build monk-server; # 和 docker-compose.yml service 名字一致
+            docker compose -f docker-compose-test.yml build monk-server; # 和 docker-compose.yml service 名字一致
             docker compose -f docker-compose-test.yml up -d;
           "
       - name: delete ssh key # 删除 ssh key
