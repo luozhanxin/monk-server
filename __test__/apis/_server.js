@@ -3,12 +3,14 @@
  */
 
 const axios = require("axios");
+// eslint-disable-next-line import/no-extraneous-dependencies
 const supertest = require("supertest");
 const { isTestRemote, isTestLocal } = require("../../src/utils/env");
 
 let request;
 if (isTestLocal) {
   // 本地测试使用 supertest。 src/app 也要在此引用
+  // eslint-disable-next-line global-require
   const server = require("../../src/app").callback();
   request = supertest(server);
 }
@@ -17,7 +19,7 @@ if (isTestLocal) {
 let TOKEN = "";
 
 // remote host
-const REMOTE_HOST = "";
+const REMOTE_HOST = "http://43.137.4.245:8081";
 
 /**
  * 发送请求
