@@ -4,23 +4,30 @@ const { redisConf } = require("../config/index");
 
 const { port, host, password } = redisConf;
 
+// dev
+let connectUrl = `redis://${host}:${port}`;
+if (password) {
+  // prod
+  connectUrl = `redis://root:${password}@${host}:${port}`;
+}
+
 const opt = {};
 if (password) {
   // prod
   opt.password = password;
 }
 
-const redisClient = redis.createClient(port, host, opt);
+const redisClient = redis.createClient({ url: connectUrl });
 redisClient.on("error", (err) => {
   console.log("redis connect error", err);
 });
 
 // run node src/db/redis.js test connect
-// redisClient.on("connect", () => {
-//  console.log("redis connect success");
-//  redisClient.set("foo", "bar", redis.print);
-//  redisClient.get("foo", redis.print);
-//  redisClient.quit();
-// });
+// (async () => {
+//  await redisClient.connect();
+//  redisClient.set("name", "zhanxin");
+//  const value = await redisClient.get("name");
+//  console.log(value);
+// })();
 
 module.exports = redisClient;

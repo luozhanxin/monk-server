@@ -1,0 +1,49 @@
+version: "1"
+services:
+  monk-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: monk-server
+    container_name: monk-server
+    ports:
+      - 8081:3000
+  monk-redis:
+    image: redis:7.0.7
+    container_name: monk-redis
+    restart: always
+    ports:
+      - 6378:6379
+    environment:
+      - TZ=Asia/Shanghai
+  monk-mysql:
+    image: mysql:8.0.31
+    container_name: monk-mysql
+    restart: always
+    privileged: true # 高权限，执行下面的 mysql/init
+    command: --default-authentication-plugin=mysql_native_password # 解决无法远程访问的问题
+    ports:
+      - 3305:3306
+    volumes:
+      - .docker-volumes/mysql/log:/var/log/mysql # 数据持久化
+      - .docker-volumes/mysql/data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d/ # 初始化 sql
+    environment:
+      - MYSQL_DATABASE=monktestdb # 初始化容器时创建数据库
+      - MYSQL_ROOT_PASSWORD=monk2023
+      - MYSQL_USER=monktest #创建 test 用户
+      - MYSQL_PASSWORD=monktest #设置 test 用户的密码
+      - TZ=Asia/Shanghai # 设置时区
+  monk-mongodb:
+    image: mongo:6.0.3
+    container_name: monk-mongodb
+    restart: always
+    ports:
+      - "27016:27017"
+    volumes:
+      - ".docker-volumes/mongo/data:/data/db" # 数据持久化
+    environment:
+      - MONGO_INITDB_DATABASE=monktestdb
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=monk2023
+      - TZ=Asia/Shanghai # 设置时区
