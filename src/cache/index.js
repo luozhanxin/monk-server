@@ -1,4 +1,5 @@
 const redisClient = require("../db/redis");
+const { isJson } = require("../utils/util");
 
 /**
  * redis set
@@ -13,37 +14,27 @@ async function cacheSet(key, val, timeout = 60 * 60) {
   } else {
     formatVal = val;
   }
-  await redisClient.connect();
+  if (redisClient.isOpen === false && redisClient.isReady === false) {
+    await redisClient.connect();
+  }
   await redisClient.set(key, formatVal);
   await redisClient.expire(key, timeout);
-  await redisClient.disconnect();
+  // await redisClient.disconnect();
 }
 
 /**
  * redis get
  * @param {string} key key
  */
-function cacheGet(key) {
-  const promise = new Promise((resolve, reject) => {
-    redisClient.connect();
-    redisClient.get(key, (err, val) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      if (val == null) {
-        resolve(null);
-        return;
-      }
-
-      try {
-        resolve(JSON.parse(val));
-      } catch (ex) {
-        resolve(val);
-      }
-    });
-  });
-  return promise;
+async function cacheGet(key) {
+  if (redisClient.isOpen === false && redisClient.isReady === false) {
+    await redisClient.connect();
+  }
+  const value = await redisClient.get(key);
+  if (isJson(value)) {
+    return JSON.parse(value);
+  }
+  return value;
 }
 
 module.exports = {
