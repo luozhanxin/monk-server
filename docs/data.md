@@ -12,6 +12,7 @@
 | nickName | varchar | 昵称 |
 | gender | int | 性别(1 男性,2 女性, 0 保密) |
 | picture | varchar | 用户头像 |
+| city | varchar | 城市 |
 | lasestLoginAt | date | 最后登录时间 |
 | isFrozen | boolean | 用户是否冻结 |
 | createdAt | date | 创建时间 |
