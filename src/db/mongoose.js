@@ -10,6 +10,7 @@ if (user && password) {
   url = `mongodb://${user}:${password}@${host}:${port}`;
 }
 
+mongoose.set("strictQuery", false);
 mongoose.connect(`${url}/${dbName}?authSource=admin`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
