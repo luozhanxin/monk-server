@@ -11,6 +11,7 @@ const cors = require("./middlewares/cors");
 
 const index = require("./routes/index");
 const users = require("./routes/users");
+const works = require("./routes/works");
 
 // error handler
 onerror(app);
@@ -50,6 +51,7 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
+app.use(works.routes(), works.allowedMethods());
 
 // error-handling
 app.on("error", (err, ctx) => {
