@@ -24,6 +24,9 @@ module.exports = {
   // 短信发送过期时间
   msgVeriCodeTimeout: "60",
 
+  // h5 host
+  h5Origin: "https://h5-dev.monk.com",
+
   // oss config
   tencentOssSecretId: "AKIDU0X01XRnRZQlrDQmeSSy0jseJbQ02JRw",
   tencentOssSecretKey: "E14hmNUKdZI2LCYSqmA9ffMQz1chZiJt",
