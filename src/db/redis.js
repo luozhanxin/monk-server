@@ -25,7 +25,7 @@ redisClient.on("error", (err) => {
 // run node src/db/redis.js test connect
 // (async () => {
 //  await redisClient.connect();
-//  redisClient.set("name", "zhanxin");
+//  await redisClient.set("name", "zhanxin1");
 //  const value = await redisClient.get("name");
 //  console.log(value);
 // })();

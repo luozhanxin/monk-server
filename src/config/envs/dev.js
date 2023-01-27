@@ -19,6 +19,8 @@ module.exports = {
     host: "localhost",
   },
   // jwt 过期时间
-  jwtExpiresIn: "1d", // 1. 字符串，如 '1h' '2d'； 2. 数字，单位是 s
+  jwtExpiresIn: 86400,
   corsOrigin: "*",
+  // 短信发送过期时间
+  msgVeriCodeTimeout: "60",
 };

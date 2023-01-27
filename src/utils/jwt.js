@@ -1,7 +1,7 @@
 const util = require("util");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config/constant");
-const { jwtExpiresIN } = require("../config/index");
+const { jwtExpiresIn } = require("../config/index");
 
 const verify = util.promisify(jwt.verify);
 
@@ -20,8 +20,8 @@ async function jwtVerify(token) {
  * @param {Object} data
  * @returns
  */
-async function jwtSign(data) {
-  const token = jwt.sign(data, JWT_SECRET, { expiresIn: jwtExpiresIN });
+function jwtSign(data) {
+  const token = jwt.sign(data, JWT_SECRET, { expiresIn: jwtExpiresIn });
   return token;
 }
 
