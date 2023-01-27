@@ -17,7 +17,7 @@ const {
   transferWorks,
 } = require("../controller/works/updateWorks");
 const { deleteWork, putBackWork } = require("../controller/works/deleteWorks");
-// const { publishWork } = require("../controller/works/publishWorks");
+const { publishWork } = require("../controller/works/publishWorks");
 
 // 路由前缀
 router.prefix("/api/works");
@@ -104,6 +104,22 @@ router.get("/", loginCheck, async (ctx) => {
     { pageIndex, pageSize }
   );
 
+  ctx.body = res;
+});
+
+// 发布作品
+router.post("/publish/:id", loginCheck, async (ctx) => {
+  const { id } = ctx.params;
+  const { username } = ctx.userInfo;
+  const res = await publishWork(id, username);
+  ctx.body = res;
+});
+
+// 发布为模版
+router.post("/publish-template/:id", loginCheck, async (ctx) => {
+  const { id } = ctx.params;
+  const { username } = ctx.userInfo;
+  const res = await publishWork(id, username, true);
   ctx.body = res;
 });
 

@@ -200,9 +200,41 @@ async function findWorkListService(whereOpt = {}, pageOpt = {}) {
   };
 }
 
+/**
+ * 更新发布内容
+ * @param {object} content 作品内容
+ * @param {string} publishContentId 发布内容 id
+ * @returns {string | null} publishContentId
+ */
+async function updatePublishContentService(content, publishContentId) {
+  if (!content) return null;
+
+  // 属性符合 WorkContentModel 规定
+  const { components = [], props = {}, setting = {} } = content;
+
+  // 已有发布内容 id
+  if (publishContentId) {
+    await WorkPublishContentModel.findByIdAndUpdate(publishContentId, {
+      components,
+      props,
+      setting,
+    });
+    return publishContentId;
+  }
+
+  // 还没有发布内容 id ，即之前尚未发布过
+  const newPublishContent = await WorkPublishContentModel.create({
+    components,
+    props,
+    setting,
+  });
+  return newPublishContent._id.toString(); // eslint-disable-line
+}
+
 module.exports = {
   createWorkService,
   updateWorkService,
   findWorkListService,
   findOneWorkService,
+  updatePublishContentService,
 };
