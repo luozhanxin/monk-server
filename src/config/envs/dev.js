@@ -28,8 +28,12 @@ module.exports = {
   h5Origin: "https://h5-dev.monk.com",
 
   // oss config
-  tencentOssSecretId: "AKIDU0X01XRnRZQlrDQmeSSy0jseJbQ02JRw",
-  tencentOssSecretKey: "E14hmNUKdZI2LCYSqmA9ffMQz1chZiJt",
-  ossRegion: "ap-nanjing",
-  ossBucket: "monk-1251844408",
+  tencentOSSConf: {
+    secretId: "AKIDU0X01XRnRZQlrDQmeSSy0jseJbQ02JRw",
+    secretKey: "E14hmNUKdZI2LCYSqmA9ffMQz1chZiJt",
+    ossRegion: "ap-nanjing",
+    ossBucket: "monk-1251844408",
+  },
+  // OSS CDN 配置
+  tencentOSS_CDNHost: "static-dev.monk.com",
 };

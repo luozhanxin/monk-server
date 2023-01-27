@@ -28,4 +28,13 @@ module.exports = {
 
   // h5 host
   h5Origin: "https://h5-test.monk.com",
+
+  // oss config
+  tencentOSSConf: {
+    secretId: "AKIDU0X01XRnRZQlrDQmeSSy0jseJbQ02JRw",
+    secretKey: "E14hmNUKdZI2LCYSqmA9ffMQz1chZiJt",
+    ossRegion: "ap-nanjing",
+    ossBucket: "monk-1251844408",
+  },
+  tencentOSS_CDNHost: "static-dev.monk.com",
 };
