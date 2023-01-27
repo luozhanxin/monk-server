@@ -25,4 +25,7 @@ module.exports = {
   corsOrigin: "*",
 
   msgVeriCodeTimeout: "120",
+
+  // h5 host
+  h5Origin: "https://h5-test.monk.com",
 };
